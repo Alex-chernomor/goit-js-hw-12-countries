@@ -40,10 +40,10 @@ const inputFunction = function(){
       </li>
       </ul>
       `);
-      localStorage.setItem('country', resultSearch.innerHTML);
       element.languages.forEach(({name})=>{   
         document.querySelector('.languagesUl').insertAdjacentHTML('beforeend',`<li>${name}</li>`)          
       });
+      localStorage.setItem('country', resultSearch.innerHTML);
      } 
      if (data.length > 1 && data.length<10){
        countryUl.insertAdjacentHTML('afterbegin',`<li class="countryList">${element.name}</li>`);
@@ -61,10 +61,10 @@ const inputFunction = function(){
          </li>
          </ul>
          `);  
-         localStorage.setItem('country', resultSearch.innerHTML);
          element.languages.forEach(({name})=>{   
-         document.querySelector('.languagesUl').insertAdjacentHTML('beforeend',`<li>${name}</li>`);
-         })
+           document.querySelector('.languagesUl').insertAdjacentHTML('beforeend',`<li>${name}</li>`);
+          })
+          localStorage.setItem('country', resultSearch.innerHTML);
        })
       } 
 
