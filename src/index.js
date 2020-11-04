@@ -10,6 +10,7 @@ const countryUl = document.querySelector('.country-ul');
 const clearBtn = document.querySelector('.clearBtn');
 const clearListBtn = document.querySelector('.clearListBtn');
 const resultSearch = document.querySelector('.resultSearch');
+const clearCountryBtn = document.querySelector('.clearCountryBtn');
 
 defaultModules.set(PNotifyDesktop, { });
 
@@ -25,6 +26,18 @@ const inputFunction = function(){
   .then(data=> data.json())
   .then(data=> {    
     countryUl.innerHTML = '';
+    if(data.length>10){
+      const errNotice2 = error({
+        title: 'Too much result', 
+        text: "Please try again",
+        delay: 1300,
+        modules: new Map([
+          ...defaultModules,
+          [PNotifyDesktop, {}
+          ]  ])
+      })
+      return 
+    }
     data.forEach(element => {
      if(data.length === 1){
       resultSearch.innerHTML = '';
@@ -67,34 +80,18 @@ const inputFunction = function(){
           localStorage.setItem('country', resultSearch.innerHTML);
        })
       } 
-
-      if(data.length>10){
-        const errNotice2 = error({
-
-          title: 'Too much result', 
-          text: "Please try again",
-          delay: 1300,
-          modules: new Map([
-            ...defaultModules,
-            [PNotifyDesktop, {}
-            ]  ])
-        })
-        return 
-      }
       
      })
     
   })
   .catch(err=>{
     const errNotice = error({
-
       title: 'Enter correct country', 
       text: "Please try again",
       delay: 1300,
       modules: new Map([
         ...defaultModules,
-        [PNotifyDesktop, {}] 
-       ])
+        [PNotifyDesktop, {}]])
     })
   })
 }
@@ -109,5 +106,11 @@ const cleanerList = function(){
   countryUl.innerHTML = '';
 }
 
+const clearCountry = function(){
+  resultSearch.innerHTML = ''
+}
+
+
  clearBtn.addEventListener('click', cleaner);
  clearListBtn.addEventListener('click', cleanerList);
+ clearCountryBtn.addEventListener('click', clearCountry);
